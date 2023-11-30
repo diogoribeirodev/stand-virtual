@@ -1,0 +1,8 @@
+{
+  "name": "Stand Virtual",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite",
+  "id": "a598b123"
+}
