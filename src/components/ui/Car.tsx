@@ -5,9 +5,10 @@ interface CarProps {
   category: string;
   image: string;
   price: string;
-  year: number;
+  price_day: string;
+  year: string;
   combustible: string;
-  store_id: number;
+  store_id: string;
 }
 export function Car({ car }: { car: CarProps }) {
   return (
