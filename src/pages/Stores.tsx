@@ -1,8 +1,9 @@
+import { StoreList } from "../components/StoreList";
 
 export const Stores: React.FC = () => {
     return (
-        <span>
-            <h1>Stores</h1>
-        </span>
+        <div className="container mx-auto p-6">
+            <StoreList />
+        </div>
     );
 }
