@@ -1,9 +1,9 @@
-import { Car } from "../components/ui/Car";
+import { CarList } from "../components/CarList";
 
 export const Cars: React.FC = () => {
   return (
     <span>
-      <Car />
+      <CarList />
     </span>
   );
 }

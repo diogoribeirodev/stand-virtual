@@ -1,7 +1,7 @@
 import { IonCol, IonGrid, IonRow } from "@ionic/react";
 import React from "react";
 import { cars } from "../data";
-import { Car } from "./ui/Car";
+import Car from "./ui/Car";
 
 export const CarList: React.FC = () => {
   return (
