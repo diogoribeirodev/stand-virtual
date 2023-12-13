@@ -4,10 +4,15 @@ import { useParams } from "react-router";
 import { cars } from "../data";
 import Car from "./ui/Car";
 
+interface CarListProps {
+  id: string;
+  name: string;
+}
+
 export const CarList: React.FC = () => {
   const [tipo, setTipo] = React.useState<string>('');
   const [combustivel, setCombustivel] = React.useState<string>('');
-  const storeId = useParams();
+  const storeId = useParams<CarListProps>();
 
   const filteredCars = cars.filter(car => {
     if (storeId.id && car.store_id !== parseInt(storeId.id)) {
