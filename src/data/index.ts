@@ -2,7 +2,7 @@ export const stores = [
   {
     id: 1,
     name: "Kmart",
-    image: "http://dummyimage.com/203x164.png/5fa2dd/ffffff",
+    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
     location: "New York",
     address: "7978 Golf Alley",
     latitude: 45.9402271,
@@ -11,7 +11,7 @@ export const stores = [
   {
     id: 2,
     name: "Kmart2",
-    image: "http://dummyimage.com/386x344.png/dddddd/000000",
+    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
     location: "Washington",
     address: "09 Muir Junction",
     latitude: 38.9,
@@ -20,7 +20,7 @@ export const stores = [
   {
     id: 3,
     name: "Kmart3",
-    image: "http://dummyimage.com/262x358.png/ff4444/ffffff",
+    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
     location: "California",
     address: "38 Karstens Crossing",
     latitude: 2.195403,
@@ -29,7 +29,7 @@ export const stores = [
   {
     id: 4,
     name: "Kmart4",
-    image: "http://dummyimage.com/269x248.png/dddddd/000000",
+    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
     location: "Texas",
     address: "5734 Gerald Junction",
     latitude: 15.4053048,
@@ -38,7 +38,7 @@ export const stores = [
   {
     id: 5,
     name: "Kmart5",
-    image: "http://dummyimage.com/375x136.png/dddddd/000000",
+    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
     location: "Texas",
     address: "82 Stephen Road",
     latitude: 49.6246813,
@@ -47,7 +47,7 @@ export const stores = [
   {
     id: 6,
     name: "Kmart6",
-    image: "http://dummyimage.com/281x125.png/cc0000/ffffff",
+    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
     location: "Texas",
     address: "83 Sunfield Road",
     latitude: 36.45361,
@@ -56,7 +56,7 @@ export const stores = [
   {
     id: 7,
     name: "Kmart7",
-    image: "http://dummyimage.com/328x169.png/ff4444/ffffff",
+    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
     location: "Texas",
     address: "413 Loeprich Avenue",
     latitude: -7.2597623,
@@ -65,7 +65,7 @@ export const stores = [
   {
     id: 8,
     name: "Kmart8",
-    image: "http://dummyimage.com/216x139.png/cc0000/ffffff",
+    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
     location: "Texas",
     address: "674 John Wall Parkway",
     latitude: -43.5210758,
@@ -74,19 +74,10 @@ export const stores = [
   {
     id: 9,
     name: "Kmart9",
-    image: "http://dummyimage.com/143x176.png/cc0000/ffffff",
+    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
     location: "Texas",
     address: "830 Marquette Alley",
     latitude: 22.974898,
     longitude: 113.993115,
-  },
-  {
-    id: 10,
-    name: "Kmart10",
-    image: "http://dummyimage.com/202x224.png/dddddd/000000",
-    location: "Texas",
-    address: "954 Southridge Road",
-    latitude: 51.9922595,
-    longitude: 17.8705418,
   },
 ];
