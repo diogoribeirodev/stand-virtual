@@ -1,9 +1,13 @@
 #container {
   text-align: center;
-  position: absolute;
+  position: relative;
   left: 0;
   right: 0;
+<<<<<<< HEAD
   top: 85%;
+=======
+  top: 90%;
+>>>>>>> 10a669a33940f15a75574964158ac7a06393c492
   transform: translateY(-50%);
 }
 
