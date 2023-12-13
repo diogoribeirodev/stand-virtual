@@ -191,3 +191,42 @@ export const cars = [
     store_id: 9,
   },
 ];
+
+export const new_cars = [
+  {
+    id: 7,
+    name: "Mercedes-Benz Classe A",
+    category: "coupe",
+    image:
+      "https://pt.wikipedia.org/wiki/Ficheiro:2018_Mercedes-Benz_A200_AMG_Line_Premium_Automatic_1.3_Front.jpg",
+    price: "30500.00",
+    price_day: "50.00",
+    year: "2022",
+    combustible: "Gasolina",
+    store_id: "7",
+  },
+  {
+    id: 8,
+    name: "Mercedes GLC",
+    category: "coupe",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/7/78/Mercedes-Benz_GL_350_BlueTEC_4MATIC_Sport-Paket_AMG_%28X_166%29_%E2%80%93_Frontansicht%2C_31._Dezember_2012%2C_D%C3%BCsseldorf.jpg",
+    price: "21500.00",
+    price_day: "50.00",
+    year: "2020",
+    combustible: "Diesel",
+    store_id: "5",
+  },
+  {
+    id: 9,
+    name: "Jaguar E-Pace",
+    category: "coupe",
+    image:
+      "https://s2-autoesporte.glbimg.com/uYpvGS1tY26iVDI7qTiU_G-GnJ8=/0x0:1980x1230/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_cf9d035bf26b4646b105bd958f32089d/internal_photos/bs/2023/F/R/1rqIDiSWKIDEZb1awxmQ/novo-jaguar-e-pace-com-motor-2.0-frente.jpg",
+    price: "80000.00",
+    price_day: "50.00",
+    year: "2023",
+    combustible: "Gasolina",
+    store_id: "9",
+  },
+];
