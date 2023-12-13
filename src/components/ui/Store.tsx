@@ -1,4 +1,6 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, useIonModal } from '@ionic/react';
+import { GoogleMap } from '@capacitor/google-maps';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonTitle, useIonModal } from '@ionic/react';
+import { useRef } from 'react';
 
 interface StoreProps {
     id: number;
@@ -12,7 +14,7 @@ interface StoreProps {
 
 function Store({ store }: { store: StoreProps }) {
 
-    const [present] = useIonModal(Modal);
+    const [present] = useIonModal(Modal({ store }));
 
     return (
         <>
@@ -32,10 +34,48 @@ function Store({ store }: { store: StoreProps }) {
 }
 export default Store;
 
-const Modal: React.FC = () => {
+function Modal({ store }: { store: StoreProps }) {
+    const mapRef = useRef<HTMLElement>();
+    let newMap: GoogleMap;
+
+    async function createMap() {
+        if (!mapRef.current) return;
+
+        newMap = await GoogleMap.create({
+            id: 'my-cool-map',
+            element: mapRef.current,
+            apiKey: "AIzaSyCIatL5fG7Gk_N9Bw0gmJH23zIGVjSlRjQ",
+            config: {
+                center: {
+                    lat: store.latitude,
+                    lng: store.longitude,
+                },
+                zoom: 16
+            }
+        })
+
+        newMap.addMarker({
+            coordinate: {
+                lat: store.latitude,
+                lng: store.longitude,
+            },
+            title: store.name,
+            snippet: store.address,
+        })
+    }
+
     return (
-        <IonContent>
-            p
-        </IonContent>
+        <>
+            <IonContent class='ion-col'>
+                <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+                <br />
+                <br />
+                <IonTitle class='ion-col' >{store.address + " " + store.location}</IonTitle>
+                <br />
+                <IonButton onClick={createMap}>View in Maps</IonButton>
+                <capacitor-google-map ref={mapRef} className="capacitor-google-map" />
+                <IonButton routerLink={`Cars/${store.id}`} >Go to Cars</IonButton>
+            </IonContent>
+        </>
     );
 };

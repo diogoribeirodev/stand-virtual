@@ -1,13 +1,13 @@
 import { Cars } from '../pages/Cars';
 import { Home } from '../pages/Home';
 import { Stores } from '../pages/Stores';
-import "./ExploreContainer.css";
 
 interface ContainerProps {
   name: string;
 }
 
 const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
+  console.log(name);
   return (
     <div id='container'>
       {(() => {

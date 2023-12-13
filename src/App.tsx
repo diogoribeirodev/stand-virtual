@@ -21,7 +21,7 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 
 /* Theme variables */
-//import './index.css';
+import "./components/ExploreContainer.css";
 import './theme/variables.css';
 
 setupIonicReact();
@@ -37,6 +37,9 @@ const App: React.FC = () => {
               <Redirect to="/Home" />
             </Route>
             <Route path="/:name" exact={true}>
+              <Page />
+            </Route>
+            <Route path="/:name/:id" exact={true}>
               <Page />
             </Route>
           </IonRouterOutlet>
