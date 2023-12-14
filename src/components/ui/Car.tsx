@@ -1,7 +1,7 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonItem, IonLabel, IonList, useIonModal } from "@ionic/react";
 import { useParams } from "react-router";
 
-interface CarProps {
+export interface CarProps {
   id: number;
   name: string;
   category: string;
@@ -11,6 +11,7 @@ interface CarProps {
   year: string;
   fuel: string;
   store_id: number;
+  new?: boolean;
 }
 
 function Car({ car }: { car: CarProps }) {

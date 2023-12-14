@@ -4,20 +4,24 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
+  IonCol,
   IonFooter,
+  IonGrid,
   IonImg,
   IonInput,
   IonItem,
   IonLabel,
   IonNote,
+  IonRow,
   IonText,
   IonTextarea,
   IonTitle,
   IonToolbar
 } from "@ionic/react";
 import { useEffect, useState } from "react";
+import Car from "../components/ui/Car";
 import Store from "../components/ui/Store";
-import { stores } from "../data";
+import { cars, stores } from "../data";
 
 export const Home: React.FC = () => {
   const [currentPosition, setCurrentPosition] = useState({
@@ -134,6 +138,14 @@ export const Home: React.FC = () => {
       </IonText>
       <br />
       <br />
+      <IonText>
+        <h3>Novidades</h3>
+      </IonText>
+      <IonGrid >
+        <IonRow>
+          {cars.filter((car) => car.new == true).map((car) => <IonCol><Car car={car} /></IonCol>)}
+        </IonRow>
+      </IonGrid>
 
       <IonItem>
         <IonLabel>Prémios Ganhos pela Empresa</IonLabel>
