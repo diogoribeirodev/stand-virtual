@@ -42,7 +42,9 @@ export const Home: React.FC = () => {
   const [email, setEmail] = useState<string>('');
 
   const printCurrentPosition = async () => {
-    const { latitude, longitude } = (await Geolocation.getCurrentPosition())
+    const { latitude, longitude } = (await Geolocation.getCurrentPosition({
+      timeout: 10000,
+    }))
       .coords;
     setCurrentPosition({ latitude, longitude });
     distance({
