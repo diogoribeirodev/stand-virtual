@@ -2,7 +2,7 @@ import { GoogleMap } from '@capacitor/google-maps';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonTitle, useIonModal } from '@ionic/react';
 import { useRef } from 'react';
 
-interface StoreProps {
+export interface StoreProps {
     id: number;
     name: string;
     image: string;

@@ -1,24 +1,23 @@
 import { Geolocation } from "@capacitor/geolocation";
-import { useEffect, useState } from "react";
-import { stores, new_cars } from "../data";
 import {
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
-  IonCardTitle,
+  IonFooter,
   IonImg,
-  IonText,
+  IonInput,
   IonItem,
   IonLabel,
   IonNote,
-  IonFooter,
-  IonToolbar,
-  IonTitle,
-  IonInput,
-  IonList,
+  IonText,
   IonTextarea,
+  IonTitle,
+  IonToolbar
 } from "@ionic/react";
+import { useEffect, useState } from "react";
+import Store from "../components/ui/Store";
+import { stores } from "../data";
 
 export const Home: React.FC = () => {
   const [currentPosition, setCurrentPosition] = useState({
@@ -26,24 +25,73 @@ export const Home: React.FC = () => {
     longitude: 0,
   });
 
+  const [nearestStore, setNearestStore] = useState({
+    id: 0,
+    name: "",
+    distance: 0,
+  });
+
   const printCurrentPosition = async () => {
     const { latitude, longitude } = (await Geolocation.getCurrentPosition())
       .coords;
     setCurrentPosition({ latitude, longitude });
+    distance({
+      "lat1": currentPosition.latitude,
+      "lon1": currentPosition.longitude,
+      "unit": "K",
+      "stores": stores,
+    });
   };
+
+  function distance({
+    lat1,
+    lon1,
+    unit,
+    stores,
+  }: {
+    lat1: number;
+    lon1: number;
+    unit: string;
+    stores: any;
+  }) {
+    const stores_distance = [];
+    for (let i = 0; i < stores.length; i++) {
+      if (lat1 == stores[i].latitude && lon1 == stores[i].longitude) {
+        return 0;
+      } else {
+        var radlat1 = (Math.PI * lat1) / 180;
+        var radlat2 = (Math.PI * stores[i].latitude) / 180;
+        var theta = lon1 - stores[i].longitude;
+        var radtheta = (Math.PI * theta) / 180;
+        var dist =
+          Math.sin(radlat1) * Math.sin(radlat2) +
+          Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        if (dist > 1) {
+          dist = 1;
+        }
+        dist = Math.acos(dist);
+        dist = (dist * 180) / Math.PI;
+        dist = dist * 60 * 1.1515;
+        if (unit == "K") {
+          dist = dist * 1.609344;
+        }
+        if (unit == "N") {
+          dist = dist * 0.8684;
+        }
+        stores_distance.push({
+          id: stores[i].id,
+          name: stores[i].name,
+          distance: dist,
+        });
+      }
+    }
+    stores_distance.sort((a, b) => a.distance - b.distance);
+    setNearestStore(stores_distance[0]);
+  }
 
   useEffect(() => {
     printCurrentPosition();
-    for (let i = 0; i < stores.length; i++) {
-      stores[i].id = distance({
-        lat1: currentPosition.latitude,
-        lon1: currentPosition.longitude,
-        lat2: stores[i].latitude,
-        lon2: stores[i].longitude,
-        unit: "K",
-      });
-    }
-  }, []);
+  }, [currentPosition]);
 
   return (
     <span>
@@ -54,6 +102,7 @@ export const Home: React.FC = () => {
         <IonCardContent>
           Latitude: {currentPosition.latitude}/ Longitude:{" "}
           {currentPosition.longitude}
+          <Store store={stores[nearestStore.id]} />
         </IonCardContent>
       </IonCard>
 
@@ -140,42 +189,3 @@ export const Home: React.FC = () => {
     </span>
   );
 };
-
-function distance({
-  lat1,
-  lon1,
-  lat2,
-  lon2,
-  unit,
-}: {
-  lat1: number;
-  lon1: number;
-  lat2: number;
-  lon2: number;
-  unit: string;
-}) {
-  if (lat1 == lat2 && lon1 == lon2) {
-    return 0;
-  } else {
-    var radlat1 = (Math.PI * lat1) / 180;
-    var radlat2 = (Math.PI * lat2) / 180;
-    var theta = lon1 - lon2;
-    var radtheta = (Math.PI * theta) / 180;
-    var dist =
-      Math.sin(radlat1) * Math.sin(radlat2) +
-      Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-    if (dist > 1) {
-      dist = 1;
-    }
-    dist = Math.acos(dist);
-    dist = (dist * 180) / Math.PI;
-    dist = dist * 60 * 1.1515;
-    if (unit == "K") {
-      dist = dist * 1.609344;
-    }
-    if (unit == "N") {
-      dist = dist * 0.8684;
-    }
-    return dist;
-  }
-}
