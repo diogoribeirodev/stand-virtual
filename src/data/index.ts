@@ -86,7 +86,7 @@ export const cars = [
   {
     id: 1,
     name: "Citroen C3",
-    category: "utilitarios",
+    category: "utilitario",
     image:
       "https://autoserrinha.pt/wp-content/uploads/2020/09/15814453682020-citroen-c3-facelift-03jpg.jpg",
     price: "139000.00",
@@ -98,9 +98,9 @@ export const cars = [
   {
     id: 2,
     name: "Ford Fiesta",
-    category: "utilitarios",
+    category: "utilitario",
     image:
-      "https://pt.wikipedia.org/wiki/Ficheiro:Ford_Fiesta_ST-Line_(VII,_Facelift)_%E2%80%93_f_30012023.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/a/a7/Ford_Fiesta_ST-Line_%28VII%2C_Facelift%29_%E2%80%93_f_30012023.jpg",
     price: "15700.00",
     price_day: "50.00",
     year: "2022",
@@ -159,7 +159,7 @@ export const cars = [
     name: "Mercedes-Benz Classe A",
     category: "Coupe",
     image:
-      "https://pt.wikipedia.org/wiki/Ficheiro:2018_Mercedes-Benz_A200_AMG_Line_Premium_Automatic_1.3_Front.jpg",
+      "https://www.mercedes-benz.pt/content/dam/hq/passengercars/cars/a-class/hatchback-w177-fl-pi/modeloverview/08-2022/images/mercedes-benz-a-class-w177-696x392-08-2022.jpg",
     price: "30500.00",
     price_day: "50.00",
     year: "2022",

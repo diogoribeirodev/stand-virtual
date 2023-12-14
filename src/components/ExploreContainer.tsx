@@ -7,7 +7,6 @@ interface ContainerProps {
 }
 
 const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
-  console.log(name);
   return (
     <div id='container'>
       {(() => {
