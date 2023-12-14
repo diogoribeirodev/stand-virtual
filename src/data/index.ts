@@ -2,7 +2,7 @@ export const stores = [
   {
     id: 1,
     name: "Happy Car Rent Viana do Castelo",
-    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image: "../../resources/03.jpg",
     location: "Viana do Castelo",
     address: "Av. da Abelheira 502, 4900-503 Viana do Castelo",
     latitude: 41.7064140841731,
@@ -11,7 +11,7 @@ export const stores = [
   {
     id: 2,
     name: "Happy Car Rent Viana do Castelo",
-    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image: "../../resources/03.jpg",
     location: "Viana do Castelo",
     address: "R. Eça de Queirós 30, 4900-432 Viana do Castelo",
     latitude: 41.70696870095011,
@@ -20,7 +20,7 @@ export const stores = [
   {
     id: 3,
     name: "Happy Car Rent Viana do Castelo",
-    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image: "../../resources/03.jpg",
     location: "Viana do Castelo",
     address: "Estr. da Papanata 223, 4900-470 Viana do Castelo",
     latitude: 2.195403,
@@ -29,7 +29,7 @@ export const stores = [
   {
     id: 4,
     name: "Happy Car Rent Viana do Castelo",
-    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image: "../../resources/03.jpg",
     location: "Viana do Castelo",
     address: "Estr. da Papanata 256, 4900-470 Viana do Castelo",
     latitude: 15.4053048,
@@ -38,7 +38,7 @@ export const stores = [
   {
     id: 5,
     name: "Happy Car Rent Viana do Castelo",
-    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image: "../../resources/03.jpg",
     location: "Viana do Castelo",
     address:
       "Edifício do Parque, Estr. da Papanata 232 Loja 5, 4900-470 Viana do Castelo",
@@ -48,7 +48,7 @@ export const stores = [
   {
     id: 6,
     name: "Happy Car Rent Viana do Castelo",
-    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image: "../../resources/03.jpg",
     location: "Viana do Castelo",
     address: "83 Sunfield Road",
     latitude: 41.69768422433465,
@@ -57,7 +57,7 @@ export const stores = [
   {
     id: 7,
     name: "Happy Car Rent Viana do Castelo",
-    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image: "../../resources/03.jpg",
     location: "Viana do Castelo",
     address: "Estr. da Papanata 215, 4900-470 Viana do Castelo",
     latitude: 41.698823517584245,
@@ -66,7 +66,7 @@ export const stores = [
   {
     id: 8,
     name: "Happy Car Rent Viana do Castelo",
-    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image: "../../resources/03.jpg",
     location: "Viana do Castelo",
     address: "674 John Wall Parkway",
     latitude: -43.5210758,
@@ -75,7 +75,7 @@ export const stores = [
   {
     id: 9,
     name: "Happy Car Rent Viana do Castelo",
-    image: "https://flowbite.com/docs/images/blog/image-1.jpg",
+    image: "../../resources/03.jpg",
     location: "Viana do Castelo",
     address: "830 Marquette Alley",
     latitude: 22.974898,

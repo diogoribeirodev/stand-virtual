@@ -19,7 +19,7 @@ function Store({ store }: { store: StoreProps }) {
     return (
         <>
             <IonCard color="light" >
-                <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+                <img alt={store.name} src={store.image} />
                 <IonCardHeader>
                     <IonCardTitle>{store.name}</IonCardTitle>
                     <IonCardSubtitle>{store.location}</IonCardSubtitle>
@@ -67,7 +67,7 @@ function Modal({ store }: { store: StoreProps }) {
     return (
         <>
             <IonContent class='ion-col'>
-                <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+                <img alt={store.name} src={store.image} />
                 <br />
                 <br />
                 <IonTitle class='ion-col' >{store.address + " " + store.location}</IonTitle>
