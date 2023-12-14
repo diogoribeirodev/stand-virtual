@@ -35,7 +35,7 @@ export const CarList: React.FC = () => {
           <IonCol>
             <IonList>
               <IonItem>
-                <IonSelect aria-label="tipo" placeholder="Tipo" onIonChange={(e) => setTipo(e.detail.value)}>
+                <IonSelect aria-label="tipo" placeholder="Tipo" onIonChange={(e) => setTipo(e.detail.value)} cancelText={"Limpar"} onIonCancel={(e) => { setTipo("") }}>
                   <IonSelectOption value="SUV">SUV</IonSelectOption>
                   <IonSelectOption value="Coupe">Coupe</IonSelectOption>
                   <IonSelectOption value="utilitario">Utilitário</IonSelectOption>
@@ -44,7 +44,7 @@ export const CarList: React.FC = () => {
             </IonList>
             <IonList>
               <IonItem>
-                <IonSelect aria-label="combustivel" placeholder="Combustível" onIonChange={(e) => setCombustivel(e.detail.value)}>
+                <IonSelect aria-label="combustivel" placeholder="Combustível" onIonChange={(e) => setCombustivel(e.detail.value)} cancelText={"Limpar"} onIonCancel={(e) => { setCombustivel("") }}>
                   <IonSelectOption value="gasolina">Gasolina</IonSelectOption>
                   <IonSelectOption value="diesel">Gasóleo</IonSelectOption>
                 </IonSelect>
