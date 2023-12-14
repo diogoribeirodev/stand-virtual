@@ -43,7 +43,8 @@ export const Home: React.FC = () => {
 
   const printCurrentPosition = async () => {
     const { latitude, longitude } = (await Geolocation.getCurrentPosition({
-      timeout: 10000,
+      timeout: 5000,
+      maximumAge: 5000,
     }))
       .coords;
     setCurrentPosition({ latitude, longitude });
@@ -109,7 +110,8 @@ export const Home: React.FC = () => {
     <span>
       <IonCard>
         <IonCardHeader>
-          <IonCardSubtitle>Localização</IonCardSubtitle>
+          <IonCardSubtitle>Localização
+          </IonCardSubtitle>
         </IonCardHeader>
         <IonCardContent>
           Latitude: {currentPosition.latitude}/ Longitude:{" "}
@@ -117,12 +119,10 @@ export const Home: React.FC = () => {
           <Store store={stores[nearestStore.id]} />
         </IonCardContent>
       </IonCard>
-
       <IonImg
         src="https://docs-demo.ionic.io/assets/madison.jpg"
         alt="The Wisconsin State Capitol building in Madison, WI at night"
       ></IonImg>
-
       <IonText>
         <h3> Happy Car Rent</h3>
       </IonText>
