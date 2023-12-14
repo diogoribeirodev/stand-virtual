@@ -120,7 +120,7 @@ export const Home: React.FC = () => {
         </IonCardContent>
       </IonCard>
       <IonImg
-        src="https://docs-demo.ionic.io/assets/madison.jpg"
+        src="https://scontent.flis7-1.fna.fbcdn.net/v/t39.30808-6/216963827_100995882267673_7790894269902837343_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=7VVVCaDjFFQAX-Ysc3n&_nc_ht=scontent.flis7-1.fna&oh=00_AfBi1GKQ3MR71t5KY6NWUe2YVJKrTWg5TrgOgnXbwZrztQ&oe=658096DD"
         alt="The Wisconsin State Capitol building in Madison, WI at night"
       ></IonImg>
       <IonText>
