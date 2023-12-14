@@ -12,6 +12,10 @@
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
+    },
+    {
+      "src": "assets/icon/03.jpg",
+      "type": "image/jpg"
     }
   ],
   "start_url": ".",
