@@ -1,5 +1,6 @@
 import { Geolocation } from "@capacitor/geolocation";
 import {
+  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -34,6 +35,11 @@ export const Home: React.FC = () => {
     name: "",
     distance: 0,
   });
+
+
+  const [message, setMessage] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
 
   const printCurrentPosition = async () => {
     const { latitude, longitude } = (await Geolocation.getCurrentPosition())
@@ -186,16 +192,28 @@ export const Home: React.FC = () => {
           <IonTitle>Contacto</IonTitle>
         </IonToolbar>
         <IonItem>
-          <IonInput label="Name:" placeholder="Enter your name"></IonInput>
+          <IonInput label="Name:" placeholder="Enter your name" inputMode="text" value={name} onIonInput={(e) => setName(e.detail.value as string)}></IonInput>
         </IonItem>
         <IonItem>
-          <IonInput label="Email:" placeholder="Enter your emaill"></IonInput>
+          <IonInput label="Email:" placeholder="Enter your emaill" inputMode="email" value={email} onIonInput={(e) => setEmail(e.detail.value as string)}></IonInput>
         </IonItem>
         <IonItem>
           <IonTextarea
             label="Message:"
             placeholder="Type your message here"
+            value={message}
+            inputMode="text" onIonInput={(e) => setMessage(e.detail.value as string)}
           ></IonTextarea>
+        </IonItem>
+        <IonItem>
+          <IonButton color="primary" onClick={() => {
+            alert(
+              `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
+            )
+            setName("");
+            setEmail("");
+            setMessage("");
+          }}>Send</IonButton>
         </IonItem>
       </IonFooter>
     </span>
