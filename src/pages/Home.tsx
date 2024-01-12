@@ -17,42 +17,37 @@ import {
   IonText,
   IonTextarea,
   IonTitle,
-  IonToolbar
+  IonToolbar,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
 import Car from "../components/ui/Car";
 import Store from "../components/ui/Store";
-import { cars, stores } from "../data";
 
 export const Home: React.FC = () => {
+  const [cars, setCars] = useState<Car[]>([]);
   const [currentPosition, setCurrentPosition] = useState({
     latitude: 0,
     longitude: 0,
   });
+  const [nearestStore, setNearestStore] = useState<Store>();
 
-  const [nearestStore, setNearestStore] = useState({
-    id: 0,
-    name: "",
-    distance: 0,
-  });
+  const [message, setMessage] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
-
-  const [message, setMessage] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-
-  const printCurrentPosition = async () => {
-    const { latitude, longitude } = (await Geolocation.getCurrentPosition({
-      timeout: 5000,
-      maximumAge: 5000,
-    }))
-      .coords;
+  const printCurrentPosition = async (data: Store[]) => {
+    const { latitude, longitude } = (
+      await Geolocation.getCurrentPosition({
+        timeout: 5000,
+        maximumAge: 5000,
+      })
+    ).coords;
     setCurrentPosition({ latitude, longitude });
     distance({
-      "lat1": currentPosition.latitude,
-      "lon1": currentPosition.longitude,
-      "unit": "K",
-      "stores": stores,
+      lat1: currentPosition.latitude,
+      lon1: currentPosition.longitude,
+      unit: "K",
+      stores: data,
     });
   };
 
@@ -67,7 +62,6 @@ export const Home: React.FC = () => {
     unit: string;
     stores: any;
   }) {
-    const stores_distance = [];
     for (let i = 0; i < stores.length; i++) {
       if (lat1 == stores[i].latitude && lon1 == stores[i].longitude) {
         return 0;
@@ -91,38 +85,58 @@ export const Home: React.FC = () => {
         if (unit == "N") {
           dist = dist * 0.8684;
         }
-        stores_distance.push({
-          id: stores[i].id,
-          name: stores[i].name,
-          distance: dist,
-        });
+        stores[i].distance = dist;
       }
     }
-    stores_distance.sort((a, b) => a.distance - b.distance);
-    setNearestStore(stores_distance[0]);
+    stores.sort(
+      (a: { distance: number }, b: { distance: number }) =>
+        a.distance - b.distance,
+    );
+    setNearestStore(stores[0]);
   }
 
   useEffect(() => {
-    printCurrentPosition();
-  }, [currentPosition]);
+    const fetchStores = async () => {
+      try {
+        const response = await fetch(
+          "https://stand-virtual-api.vercel.app/api/stores",
+        );
+        const data = await response.json();
+        return data.stores;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const fetchCars = async () => {
+      try {
+        const response = await fetch(
+          "https://stand-virtual-api.vercel.app/api/cars?new=true",
+        );
+        const data = await response.json();
+        setCars(data.cars);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCars();
+    fetchStores().then((data) => {
+      printCurrentPosition(data);
+    });
+  }, []);
 
   return (
     <span>
       <IonCard>
         <IonCardHeader>
-          <IonCardSubtitle>Localização
-          </IonCardSubtitle>
+          <IonCardSubtitle>Localização</IonCardSubtitle>
         </IonCardHeader>
         <IonCardContent>
           Latitude: {currentPosition.latitude}/ Longitude:{" "}
           {currentPosition.longitude}
-          <Store store={stores[nearestStore.id]} />
+          {nearestStore && <Store store={nearestStore}></Store>}
         </IonCardContent>
       </IonCard>
-      <IonImg
-        src="https://scontent.flis7-1.fna.fbcdn.net/v/t39.30808-6/216963827_100995882267673_7790894269902837343_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=7VVVCaDjFFQAX-Ysc3n&_nc_ht=scontent.flis7-1.fna&oh=00_AfBi1GKQ3MR71t5KY6NWUe2YVJKrTWg5TrgOgnXbwZrztQ&oe=658096DD"
-        alt="The Wisconsin State Capitol building in Madison, WI at night"
-      ></IonImg>
       <IonText>
         <h3> Happy Car Rent</h3>
       </IonText>
@@ -149,9 +163,13 @@ export const Home: React.FC = () => {
       <IonText>
         <h3>Novidades</h3>
       </IonText>
-      <IonGrid >
+      <IonGrid>
         <IonRow>
-          {cars.filter((car) => car.new == true).map((car) => <IonCol><Car car={car} /></IonCol>)}
+          {cars.map((car) => (
+            <IonCol key={car.id}>
+              <Car car={car} />
+            </IonCol>
+          ))}
         </IonRow>
       </IonGrid>
 
@@ -194,28 +212,44 @@ export const Home: React.FC = () => {
           <IonTitle>Contacto</IonTitle>
         </IonToolbar>
         <IonItem>
-          <IonInput label="Name:" placeholder="Enter your name" inputMode="text" value={name} onIonInput={(e) => setName(e.detail.value as string)}></IonInput>
+          <IonInput
+            label="Name:"
+            placeholder="Enter your name"
+            inputMode="text"
+            value={name}
+            onIonInput={(e) => setName(e.detail.value as string)}
+          ></IonInput>
         </IonItem>
         <IonItem>
-          <IonInput label="Email:" placeholder="Enter your emaill" inputMode="email" value={email} onIonInput={(e) => setEmail(e.detail.value as string)}></IonInput>
+          <IonInput
+            label="Email:"
+            placeholder="Enter your emaill"
+            inputMode="email"
+            value={email}
+            onIonInput={(e) => setEmail(e.detail.value as string)}
+          ></IonInput>
         </IonItem>
         <IonItem>
           <IonTextarea
             label="Message:"
             placeholder="Type your message here"
             value={message}
-            inputMode="text" onIonInput={(e) => setMessage(e.detail.value as string)}
+            inputMode="text"
+            onIonInput={(e) => setMessage(e.detail.value as string)}
           ></IonTextarea>
         </IonItem>
         <IonItem>
-          <IonButton color="primary" onClick={() => {
-            alert(
-              `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
-            )
-            setName("");
-            setEmail("");
-            setMessage("");
-          }}>Send</IonButton>
+          <IonButton
+            color="primary"
+            onClick={() => {
+              alert(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
+              setName("");
+              setEmail("");
+              setMessage("");
+            }}
+          >
+            Send
+          </IonButton>
         </IonItem>
       </IonFooter>
     </span>

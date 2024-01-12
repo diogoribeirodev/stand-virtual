@@ -1,32 +1,39 @@
-import { IonCol, IonGrid, IonItem, IonList, IonRow, IonSelect, IonSelectOption } from "@ionic/react";
-import React from "react";
-import { useParams } from "react-router";
-import { cars } from "../data";
+import {
+  IonCol,
+  IonGrid,
+  IonItem,
+  IonList,
+  IonRow,
+  IonSelect,
+  IonSelectOption,
+} from "@ionic/react";
+import React, { useEffect } from "react";
 import Car from "./ui/Car";
 
-interface CarListProps {
-  id: string;
-  name: string;
-}
-
 export const CarList: React.FC = () => {
-  const [tipo, setTipo] = React.useState<string>('');
-  const [combustivel, setCombustivel] = React.useState<string>('');
-  const storeId = useParams<CarListProps>();
+  const [tipo, setTipo] = React.useState<string>("");
+  const [combustivel, setCombustivel] = React.useState<string>("");
+  const [cars, setCars] = React.useState<Car[]>([]);
+  const storeId = new URLSearchParams(window.location.search).get("store");
 
-  const filteredCars = cars.filter(car => {
-    if (storeId.id && car.store_id !== parseInt(storeId.id)) {
-      return false;
-    }
-    if (tipo && car.category !== tipo) {
-      return false;
-    }
-    if (combustivel && car.fuel !== combustivel) {
-      return false;
-    }
-    return true;
-  });
-
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const response = await fetch(
+          `https://stand-virtual-api.vercel.app/api/cars?${
+            tipo ? `category=${tipo}` : ""
+          }${combustivel ? `&fuel=${combustivel}` : ""}${
+            storeId ? `&store=${storeId}` : ""
+          }`,
+        );
+        const data = await response.json();
+        setCars(data.cars);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCars();
+  }, [tipo, combustivel]);
 
   return (
     <>
@@ -35,16 +42,35 @@ export const CarList: React.FC = () => {
           <IonCol>
             <IonList>
               <IonItem>
-                <IonSelect aria-label="tipo" placeholder="Tipo" onIonChange={(e) => setTipo(e.detail.value)} cancelText={"Limpar"} onIonCancel={(e) => { setTipo("") }}>
+                <IonSelect
+                  aria-label="tipo"
+                  placeholder="Tipo"
+                  onIonChange={(e) => setTipo(e.detail.value)}
+                  cancelText={"Limpar"}
+                  onIonCancel={(e) => {
+                    e.preventDefault();
+                    setTipo("");
+                  }}
+                >
                   <IonSelectOption value="SUV">SUV</IonSelectOption>
                   <IonSelectOption value="Coupe">Coupe</IonSelectOption>
-                  <IonSelectOption value="utilitario">Utilitário</IonSelectOption>
+                  <IonSelectOption value="utilitario">
+                    Utilitário
+                  </IonSelectOption>
                 </IonSelect>
               </IonItem>
             </IonList>
             <IonList>
               <IonItem>
-                <IonSelect aria-label="combustivel" placeholder="Combustível" onIonChange={(e) => setCombustivel(e.detail.value)} cancelText={"Limpar"} onIonCancel={(e) => { setCombustivel("") }}>
+                <IonSelect
+                  aria-label="combustivel"
+                  placeholder="Combustível"
+                  onIonChange={(e) => setCombustivel(e.detail.value)}
+                  cancelText={"Limpar"}
+                  onIonCancel={(e) => {
+                    setCombustivel("");
+                  }}
+                >
                   <IonSelectOption value="gasolina">Gasolina</IonSelectOption>
                   <IonSelectOption value="diesel">Gasóleo</IonSelectOption>
                 </IonSelect>
@@ -55,7 +81,7 @@ export const CarList: React.FC = () => {
       </IonGrid>
       <IonGrid>
         <IonRow>
-          {filteredCars.map((car) => (
+          {cars.map((car) => (
             <IonCol sizeXl="4" sizeMd="6" sizeSm="6" sizeXs="12" key={car.id}>
               <Car car={car} />
             </IonCol>

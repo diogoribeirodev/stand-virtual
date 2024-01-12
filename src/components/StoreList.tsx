@@ -1,10 +1,27 @@
 import { IonCol, IonGrid, IonRow } from "@ionic/react";
-import React from "react";
-import { stores } from "../data";
 import "./StoreList.css";
 import Store from "./ui/Store";
+import { useEffect } from "react";
+import React from "react";
 
 export const StoreList: React.FC = () => {
+  const [stores, setStores] = React.useState<Store[]>([]);
+
+  useEffect(() => {
+    const fetchStores = async () => {
+      try {
+        const response = await fetch(
+          "https://stand-virtual-api.vercel.app/api/stores",
+        );
+        const data = await response.json();
+        setStores(data.stores);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchStores();
+  }, []);
+
   return (
     <>
       <IonGrid>

@@ -6,4 +6,4 @@ export const Cars: React.FC = () => {
       <CarList />
     </span>
   );
-}
+};

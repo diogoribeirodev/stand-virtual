@@ -1,6 +1,6 @@
-import { Cars } from '../pages/Cars';
-import { Home } from '../pages/Home';
-import { Stores } from '../pages/Stores';
+import { Cars } from "../pages/Cars";
+import { Home } from "../pages/Home";
+import { Stores } from "../pages/Stores";
 
 interface ContainerProps {
   name: string;
@@ -8,14 +8,14 @@ interface ContainerProps {
 
 const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
   return (
-    <div id='container'>
+    <div id="container">
       {(() => {
         switch (name) {
-          case 'Home':
+          case "Home":
             return <Home />;
-          case 'Cars':
+          case "Cars":
             return <Cars />;
-          case 'Stores':
+          case "Stores":
             return <Stores />;
           default:
             return <Home />;
