@@ -35,10 +35,16 @@ export const Home: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
-    const mapRef = useRef<HTMLElement>();
+  const mapRef = useRef<HTMLElement>();
   let newMap: GoogleMap;
 
-    async function createMap({ latitude, longitude }: { latitude: number; longitude: number; }) {
+  async function createMap({
+    latitude,
+    longitude,
+  }: {
+    latitude: number;
+    longitude: number;
+  }) {
     if (!mapRef.current) return;
     console.log(currentPosition);
     newMap = await GoogleMap.create({
@@ -47,7 +53,7 @@ export const Home: React.FC = () => {
       apiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY!,
       config: {
         center: {
-          lat:latitude,
+          lat: latitude,
           lng: longitude,
         },
         zoom: 16,
@@ -69,7 +75,7 @@ export const Home: React.FC = () => {
         maximumAge: 5000,
       })
     ).coords;
-    setCurrentPosition({ latitude, longitude })
+    setCurrentPosition({ latitude, longitude });
     return { latitude, longitude };
   };
 
@@ -86,10 +92,9 @@ export const Home: React.FC = () => {
       }
     };
     fetchCars();
-    printCurrentPosition().then(( data) => {
+    printCurrentPosition().then((data) => {
       createMap(data);
-    }
-    );
+    });
   }, []);
 
   return (
