@@ -19,9 +19,10 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Car from "../components/ui/Car";
 import Store from "../components/ui/Store";
+import { GoogleMap } from "@capacitor/google-maps";
 
 export const Home: React.FC = () => {
   const [cars, setCars] = useState<Car[]>([]);
@@ -29,85 +30,50 @@ export const Home: React.FC = () => {
     latitude: 0,
     longitude: 0,
   });
-  const [nearestStore, setNearestStore] = useState<Store>();
 
   const [message, setMessage] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
-  const printCurrentPosition = async (data: Store[]) => {
+    const mapRef = useRef<HTMLElement>();
+  let newMap: GoogleMap;
+
+    async function createMap({ latitude, longitude }: { latitude: number; longitude: number; }) {
+    if (!mapRef.current) return;
+    console.log(currentPosition);
+    newMap = await GoogleMap.create({
+      id: "my-cool-map",
+      element: mapRef.current,
+      apiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY!,
+      config: {
+        center: {
+          lat:latitude,
+          lng: longitude,
+        },
+        zoom: 16,
+      },
+    });
+
+    newMap.addMarker({
+      coordinate: {
+        lat: latitude,
+        lng: longitude,
+      },
+    });
+  }
+
+  const printCurrentPosition = async () => {
     const { latitude, longitude } = (
       await Geolocation.getCurrentPosition({
         timeout: 5000,
         maximumAge: 5000,
       })
     ).coords;
-    setCurrentPosition({ latitude, longitude });
-    distance({
-      lat1: currentPosition.latitude,
-      lon1: currentPosition.longitude,
-      unit: "K",
-      stores: data,
-    });
+    setCurrentPosition({ latitude, longitude })
+    return { latitude, longitude };
   };
 
-  function distance({
-    lat1,
-    lon1,
-    unit,
-    stores,
-  }: {
-    lat1: number;
-    lon1: number;
-    unit: string;
-    stores: any;
-  }) {
-    for (let i = 0; i < stores.length; i++) {
-      if (lat1 == stores[i].latitude && lon1 == stores[i].longitude) {
-        return 0;
-      } else {
-        var radlat1 = (Math.PI * lat1) / 180;
-        var radlat2 = (Math.PI * stores[i].latitude) / 180;
-        var theta = lon1 - stores[i].longitude;
-        var radtheta = (Math.PI * theta) / 180;
-        var dist =
-          Math.sin(radlat1) * Math.sin(radlat2) +
-          Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-        if (dist > 1) {
-          dist = 1;
-        }
-        dist = Math.acos(dist);
-        dist = (dist * 180) / Math.PI;
-        dist = dist * 60 * 1.1515;
-        if (unit == "K") {
-          dist = dist * 1.609344;
-        }
-        if (unit == "N") {
-          dist = dist * 0.8684;
-        }
-        stores[i].distance = dist;
-      }
-    }
-    stores.sort(
-      (a: { distance: number }, b: { distance: number }) =>
-        a.distance - b.distance,
-    );
-    setNearestStore(stores[0]);
-  }
-
   useEffect(() => {
-    const fetchStores = async () => {
-      try {
-        const response = await fetch(
-          "https://stand-virtual-api.vercel.app/api/stores",
-        );
-        const data = await response.json();
-        return data.stores;
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     const fetchCars = async () => {
       try {
         const response = await fetch(
@@ -120,9 +86,10 @@ export const Home: React.FC = () => {
       }
     };
     fetchCars();
-    fetchStores().then((data) => {
-      printCurrentPosition(data);
-    });
+    printCurrentPosition().then(( data) => {
+      createMap(data);
+    }
+    );
   }, []);
 
   return (
@@ -134,7 +101,7 @@ export const Home: React.FC = () => {
         <IonCardContent>
           Latitude: {currentPosition.latitude}/ Longitude:{" "}
           {currentPosition.longitude}
-          {nearestStore && <Store store={nearestStore}></Store>}
+          <capacitor-google-map ref={mapRef} className="capacitor-google-map" />
         </IonCardContent>
       </IonCard>
       <IonText>
